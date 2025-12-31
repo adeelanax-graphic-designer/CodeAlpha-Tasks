@@ -1,4 +1,4 @@
-# Hangman Game 🎯
+# Hangman Game 
 
 This repository contains a simple Hangman game built using Python as part of a CodeAlpha internship task.
 
