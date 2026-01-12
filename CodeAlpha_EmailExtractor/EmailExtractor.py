@@ -1,22 +1,50 @@
-import re 
+"""
+Task 3: Task Automation with Python Scripts
+Objective:
+Extract all email addresses from a text file and save them into another file.
 
-#Read the input file
+Author: Adeela Naz
+"""
 
-with open("input.txt","r") as file:
-           text= file.read()
+import re
+import os
 
-#Regular expression pattern for email addresses
+def extract_emails(input_file, output_file):
+    """
+    Extracts email addresses from a text file
+    and writes them to a new file.
+    """
 
-pattern =r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+    # Check if input file exists
+    if not os.path.exists(input_file):
+        print(" Error: Input file does not exist.")
+        return
 
-#Extract all emails addresses 
+    # Read content from input file
+    with open(input_file, "r") as file:
+        content = file.read()
 
-emails = re.findall(pattern,text)
+    # Regular expression pattern for email extraction
+    email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
 
-#Write extracted emails to a new file 
+    # Find all email addresses
+    emails = re.findall(email_pattern, content)
 
-with open("emails.txt","w") as file:
- 
- for email in emails:  file. write(email+"\n")
+    # Remove duplicate emails
+    unique_emails = sorted(set(emails))
 
-print("Email addresses extracted successfully and saved to emails.txt ")
+    # Write extracted emails to output file
+    with open(output_file, "w") as file:
+        for email in unique_emails:
+            file.write(email + "\n")
+
+    print(f" Success: {len(unique_emails)} emails extracted.")
+    print(f" Output saved in '{output_file}'")
+
+
+# Main execution
+if __name__ == "__main__":
+    input_file = "input.txt"
+    output_file = "emails.txt"
+    extract_emails(input_file, output_file)
+
